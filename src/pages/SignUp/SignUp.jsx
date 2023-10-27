@@ -5,6 +5,7 @@ import {FcGoogle} from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 
 
@@ -25,6 +26,13 @@ const SignUp = () => {
         .then(result =>{
             const user = result.user;
             console.log(user)
+            if(user.insertedId){
+                Swal.fire(
+                    'Good job!',
+                    'Sign Up Successfully',
+                    'success'
+                  )
+            }
         })
         .catch(error => console.log(error))
     }
@@ -42,7 +50,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="name" name='Name' placeholder="Name" className="input input-bordered" required />
+                                <input type="name" name='name' placeholder="Name" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
