@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BookingRow from "./BookingRow";
+import Swal from "sweetalert2";
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
@@ -11,8 +12,47 @@ const Bookings = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => setBookings(data))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    
+    }, [url]);
+
+    const handleDelete = id => {
+        const proceed = confirm('Are you sure you want to delete');
+        if(proceed){
+            fetch(`http://localhost:5000/bookings/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.deletedId > 0){
+                    Swal.fire(
+                        'Deleted Successfully ',
+                        'success'
+                      )
+                }
+            })
+        }
+    }
+
+    const handleBookingConfirm = id => {
+       fetch(`http://localhost:5000/bookings/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({status: 'confirm'})
+       })
+       .then(res => res.json())
+       .then(data => {
+        console.log(data);
+        if(data.modifiedCount > 0){
+            // update status
+            
+           }
+       })
+    }
+        
+        
     return (
         <div>
             <h2 className=" text-5xl">My Bookings: {bookings.length}</h2>
@@ -38,7 +78,9 @@ const Bookings = () => {
                         bookings.map(booking => 
                         <BookingRow 
                         key={booking._id}
-                        booking={booking}>
+                        booking={booking}
+                        handleDelete={handleDelete}
+                        handleBookingConfirm={handleBookingConfirm}>
                         </BookingRow>)
                        }
                         
