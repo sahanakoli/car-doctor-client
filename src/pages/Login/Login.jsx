@@ -2,7 +2,7 @@ import img from '../../assets/images/login/login.svg'
 import {FaFacebook} from 'react-icons/fa';
 import {TiSocialLinkedinCircular} from 'react-icons/ti';
 import {FcGoogle} from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 
@@ -10,6 +10,10 @@ import { AuthContext } from '../../Provider/AuthProvider';
 const Login = () => {
 
     const {signIn} = useContext(AuthContext);
+    const location = useLocation();
+    // const navigate = useNavigate();
+    console.log(location)
+
     const handleLogin = event =>{
         event.preventDefault();
 
@@ -20,8 +24,11 @@ const Login = () => {
 
         signIn(email,password)
         .then(result =>{
-            const user = result.user;
-            console.log(user);
+            const loggedInUser = result.user;
+            console.log(loggedInUser);
+            
+            // navigate(location?.state ? location?.state : '/')
+
         })
         .catch(error => console.log(error));
     }
