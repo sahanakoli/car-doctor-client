@@ -8,7 +8,7 @@ const Info = () => {
     return (
         <div className="w-full h-[250px] mt-10 rounded-lg bg-black">
            <div className=' flex justify-around items-center '>
-           <div className=' text-white flex justify-center items-center mt-20 gap-4'>
+           <div className=' text-white flex justify-center items-center mt-20 gap-2 md:gap-4 lg:gap-4'>
             <div className=' relative'>
             <FcCalendar className=' text-4xl'></FcCalendar>
             <FcAlarmClock className=' absolute text-xl top-4 left-4'></FcAlarmClock>
@@ -18,7 +18,7 @@ const Info = () => {
                 <h2 className=' text-lg font-bold'>7:00 am - 9:00 pm</h2>
             </div>
             </div> 
-           <div className=' text-white flex justify-center items-center mt-20 gap-4'>
+           <div className=' text-white flex justify-center items-center mt-20 gap-2 md:gap-4 lg:gap-4'>
            <div className=' relative'>
             <TbPhoneCall className=' text-4xl '></TbPhoneCall>
             </div>
@@ -27,7 +27,7 @@ const Info = () => {
                 <h2 className=' text-lg font-bold'>+2546 251 2658</h2>
             </div>
             </div> 
-           <div className=' text-white flex justify-center items-center mt-20 gap-4'>
+           <div className=' text-white flex justify-center items-center mt-20 gap-2 md:gap-4 lg:gap-4'>
            <div className=' relative'>
             <CiLocationOn className=' text-4xl'></CiLocationOn>
             </div>

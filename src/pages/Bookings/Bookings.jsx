@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import axios from "axios";
+
+
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
@@ -9,9 +12,14 @@ const Bookings = () => {
 
     const url = `http://localhost:5000/bookings?email=${user.email}`;
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setBookings(data))
+
+        axios.get(url, {withCredentials: true})
+        .then(res => {
+            setBookings(res.data)
+        })
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setBookings(data))
     
     }, [url]);
 
@@ -19,7 +27,6 @@ const Bookings = () => {
         Swal.fire({
             title: 'Do you want to delete booking?',
             showDenyButton: true,
-            
             confirmButtonText: 'delete',
             denyButtonText: `cancel`,
           }).then((result) => {
@@ -74,7 +81,6 @@ const Bookings = () => {
         
     return (
         <div>
-            <h2 className=" text-5xl">My Bookings: {bookings.length}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
