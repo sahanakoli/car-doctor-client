@@ -26,13 +26,13 @@ const SignUp = () => {
         .then(result =>{
             const user = result.user;
             console.log(user)
-            if(user.insertedId){
+            
                 Swal.fire(
                     'Good job!',
                     'Sign Up Successfully',
                     'success'
                   )
-            }
+            
         })
         .catch(error => console.log(error))
     }

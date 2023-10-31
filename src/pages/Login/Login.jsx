@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
@@ -28,9 +29,15 @@ const Login = () => {
             const loggedInUser = result.user;
             console.log(loggedInUser);
             const user = {email};
+
+            Swal.fire(
+                'Good job!',
+                'Login successfully ',
+                'success'
+              )
             
             // get access token
-            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            axios.post('https://car-doctor-server-rose-iota.vercel.app/jwt', user, {withCredentials: true})
             .then(res => {
                console.log(res.data);
                if(res.data.success){

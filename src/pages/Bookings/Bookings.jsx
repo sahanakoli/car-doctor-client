@@ -1,27 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
-import axios from "axios";
+import useAxiosSecure from "../../useAxiosSecure/useAxiosSecure";
 
 
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
+    const axiosSecure = useAxiosSecure([]);
 
-    const url = `http://localhost:5000/bookings?email=${user.email}`;
+
+    const url = `https://car-doctor-server-rose-iota.vercel.app/bookings?email=${user.email}`;
+    // const url = `https://car-doctor-server-rose-iota.vercel.app/bookings?email=tahmid@m.com`;
     useEffect(() => {
 
-        axios.get(url, {withCredentials: true})
+    if(user?.email){
+        axiosSecure.get(url, {withCredentials: true})
         .then(res => {
             setBookings(res.data)
         })
+    }
         // fetch(url)
         //     .then(res => res.json())
         //     .then(data => setBookings(data))
     
-    }, [url]);
+    }, [url, axiosSecure, user?.email]);
 
     const handleDelete = id => {
         Swal.fire({
@@ -32,7 +38,7 @@ const Bookings = () => {
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/bookings/${id}`, {
+                fetch(`https://car-doctor-server-rose-iota.vercel.app/bookings/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json())
@@ -57,7 +63,7 @@ const Bookings = () => {
     }
 
     const handleBookingConfirm = id => {
-       fetch(`http://localhost:5000/bookings/${id}`, {
+       fetch(`https://car-doctor-server-rose-iota.vercel.app/bookings/${id}`, {
         method: 'PATCH',
         headers: {
             'content-type': 'application/json'

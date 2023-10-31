@@ -34,7 +34,7 @@ const router = createBrowserRouter([
           path:'/checkout/:id',
           element:<PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
           loader: ({params}) => {
-            return fetch(`http://localhost:5000/service/${params.id}`)
+            return fetch(`https://car-doctor-server-rose-iota.vercel.app/service/${params.id}`)
           }
         },
         {
